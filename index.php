@@ -16,6 +16,7 @@
 		<body>
 		<div id = "mainContent">
 
+		
 			<table id="employee" class="display" >
 		        <thead>
 		            <tr>
@@ -31,11 +32,9 @@
 	    </div>
 
 
-<?php
-	include('./php/datalib.php');
-	$con =createDbSession();
-?> 
+		<?php
+			include('./php/datalib.php');
+		?>
 
-	    
 	</body>
 </html>

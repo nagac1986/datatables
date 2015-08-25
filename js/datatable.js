@@ -1,17 +1,36 @@
 /* Formatting function for row details - modify as you need */
 function format ( d ) {
-    // `d` is the original data object for the row
-    return '<table class = "innerTable" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-            '<td>Employee Role:</td>'+
-            '<td>'+d.field3+'</td>'+
-        '</tr>'+
-    '</table>';
+
+$.ajax({
+    type: 'get',
+    url: './php/lookupEmployeeRoles.php?id='+d.eid,
+    success: function(data) {
+         $table = '<table class = "innerTable" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+            '<tr>'+
+                '<fieldset> ' +
+                    '<legend>Employee roles </legend>'+
+                    '<form action="employeemap"> ' +
+                        '<input type="checkbox" name="role" value="Administrator"> Admin <br> ' +
+                        '<input type="checkbox" name="role" value="Administrator" checked /> Admin <br> ' +
+                        '<input type="checkbox" name="role" value="Administrator"> Admin <br> ' +
+                        '<input type="submit" value="Submit"> ' +
+                    '</form>' +
+                '</fieldset> ' +
+            '</tr>'+
+        '</table>'; 
+
+        return $table;   
+    }
+});
+
+
+   
 }
 
 $(document).ready(function() {
+ 
    var empTable =   $('#employee').DataTable( {
-        "ajax": './staticdata.json',
+        "ajax": './php/getEmployeeDetails.php',
         "columns": [
             {
                 "className":      'details-control',
@@ -19,9 +38,9 @@ $(document).ready(function() {
                 "employeeDetails":           null,
                 "defaultContent": ''
             },
-            { "data": "id" },
-            { "data": "firstName" },
-            { "data": "lastName" }, 
+            { "data": "eid" },
+            { "data": "firstname" },
+            { "data": "lastname" }, 
             { "data": "field1" },
             { "data": "field2" }
         ],
@@ -38,8 +57,43 @@ $(document).ready(function() {
             tr.removeClass('shown');
         }
         else {
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
+            //row.data().eid
+             $.ajax({
+            type: 'get',
+            url: './php/lookupEmployeeRoles.php?id='+row.data().eid,
+            success: function(data) {
+                 $roleData = JSON.parse(data)
+                 $table = '<table class = "innerTable" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                    '<tr>'+
+                        '<fieldset> ' +
+                            '<legend>Employee roles </legend>'+
+                            '<form action="employeemap"> ' ;
+
+                             for (i = 0 ; i<$roleData.data.length ;i++) {
+                                $table = $table + '<input type="checkbox" name="role" value= "'+ 
+                                        $roleData.data[i].rolename+'"';
+                                if($roleData.data[i].hasrole == 1)  
+                                {
+                                     $table = $table + 'checked'
+                                }
+                                $table = $table  + ' > '+ $roleData.data[i].rolename+' <br> '  ; 
+                            }
+                            $table = $table+ '<input type="submit" value="Submit"> ' +
+                        '</form>' +
+                        '</fieldset> ' +
+                    '</tr>'+
+                '</table>'; 
+            console.log($table);
+             row.child($table).show();
+             tr.addClass('shown');
+                   
+            }});
+      //      row.child( format(row.data()) ).show();
+           
         }
+
     } );
+
+
+
 } ); 

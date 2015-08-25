@@ -18,7 +18,6 @@ function generateSelect($name = '', $options = array() , $select = '') {
 
 
 function createDbSession() {
-	
 	$hostname = "localhost";
 	$username = "root";
 	$password = "";
@@ -28,46 +27,31 @@ function createDbSession() {
 	if ($mysqli->connect_errno) {
 	    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	}
-return $mysqli;
-
+	return $mysqli;
 }
 
 
-
-
-function drawTable($queryString){
-	$result = mysql_query($queryString);
-	if (!$result)
-	{
-		die("Error with select SQL query attempt: (note below)  <p>" . mysql_error());
+function getEmployeeInfo() {			
+	$mysqli =  createDbSession();
+	if ($mysqli->connect_errno) {
+	    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	}
-	echo "<table border=1>";
-	echo "<tr>";
-	$i=0;
-	$colnames = mysql_fetch_assoc($result);
-	foreach($colnames as $name => $value) {
-		echo "<th >" . $name  . "</th>";
-		$dataArray[$i]=$name;
-		$i++;
-	}
-	echo "</tr>";
-	mysql_data_seek($result,0);
-	while($row = mysql_fetch_array($result))
-	{
-		echo "<tr>";
-		echo generatetd($dataArray,$row);
-		echo "</tr>";
-	}
-	echo "</table>";
-}
 
-function generatetd( $options = array(), $row =array() ) {
-    $html = "";
-    foreach ($options as $option => $value) {
-		$html .= "<td  >" . $row[$value] . "</td>";
+    $myquery = "SELECT * from employees";
+    $myArray = array();
+    if ($result = $mysqli->query($myquery)) {
+        $tempArray = array();
+        while($row = $result->fetch_object()) {
+                $tempArray = $row;
+                array_push($myArray, $tempArray);
+            }
+        echo json_encode($myArray);
     }
-    return $html;
+
+    $result->close();
+    $mysqli->close();
 }
+
 
 
 ?> 
