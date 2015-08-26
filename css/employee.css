@@ -29,8 +29,6 @@ tr.shown td.details-control {
     background: url('../resources/details_close.png') no-repeat center center;
 }
 
-
-
 #mainContent {
     border-style: solid;
     border-color: grey;
@@ -40,3 +38,5 @@ tr.shown td.details-control {
 #employee_wrapper{
 	padding-top: 20px;
 }
+
+

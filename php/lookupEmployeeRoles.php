@@ -1,3 +1,4 @@
+<!-- This page with give the json assinged and unassigned roles for a given employee-->
 <?php
 $empId = $_GET["id"];
 include('./datalib.php'); 		

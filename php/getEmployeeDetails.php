@@ -1,3 +1,4 @@
+<!-- This page with give the json response of all the employees-->
 <?php
 	include('./datalib.php'); 		
 	$mysqli =  createDbSession();

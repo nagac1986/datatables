@@ -12,10 +12,3 @@ Below is a toy project we have used for this position before.  If I were doing t
 	oEach column should be shown.
 	oClicking on a user ID or table row should bring up a modal that allows permissions to be set for a user.  jQuery should be used to handle the click event.  The user information should be pulled into the modal using Ajax.
  
-
-Components:
-Static page
-Script
-Application which feeds data to & from the database
-
-

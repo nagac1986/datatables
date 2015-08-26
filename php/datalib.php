@@ -1,7 +1,6 @@
 <?php
 
-
-
+// Function for creating db session. Its the responsibility of the calling method to close te connection.
 function createDbSession() {
 	$hostname = "localhost";
 	$username = "root";

@@ -5,18 +5,15 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js/datatable.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<script  type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<script  type="text/javascript" src="http://www.jsviews.com/download/jsviews.js"> </script>
 		
-		<link rel="stylesheet"  href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet"  href="./css/employee.css">
-
-		<link rel="stylesheet"  href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css">
-		<link rel="stylesheet"  href="https://cdn.datatables.net/select/1.0.0/css/select.bootstrap.min.css">
-		<link rel="stylesheet"  href="https://cdn.datatables.net/buttons/1.0.1/css/buttons.bootstrap.min.css">
-
-		
-		
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/select/1.0.0/css/select.bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.1/css/buttons.bootstrap.min.css">
+		<link rel="stylesheet" href="./css/employee.css">
 
 		
 	</head>
