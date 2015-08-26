@@ -41,12 +41,9 @@ $(document).ready(function() {
             url: './php/lookupEmployeeRoles.php?id='+row.data().eid,
             success: function(data) {
                  $roleData = JSON.parse(data)
-                 $table = '<div id = "innerTable" >' +
-                    
+                 $table = '<div id = "innerTable" class="form-group" >' +
                         '<fieldset> ' +
                             '<legend>Employee roles </legend>';
-                            //'<form id="employeemap"> ' ;
-
                              for (i = 0 ; i<$roleData.data.length ;i++) {
                                 $table = $table + '<input type="checkbox" name="role" value= "'+ 
                                         $roleData.data[i].roleid+'"';
@@ -56,16 +53,14 @@ $(document).ready(function() {
                                 }
                                 $table = $table  + ' > '+ $roleData.data[i].rolename+' <br> '  ; 
                             }
-                            $table = $table+ '<button id = "empButton" type="submit">Submit form</button>' +
+                            $table = $table+ '<button id = "empButton"  class="btn btn-default" type="submit">Submit form</button>' +   
                       //  '</form>' +
                         '</fieldset> ' +
                 '</div>'; 
              row.child($table).show();
              tr.addClass('shown');
                    
-            }});
-      //      row.child( format(row.data()) ).show();
-           
+            }});           
         }
 
     } );
@@ -78,7 +73,6 @@ jsonObj = [];
 for( i =0 ;i<thisTr.find('input').length;i++){
     var checked = thisTr.find('input')[i].checked;
     var id = thisTr.find('input')[i].value;
-    alert(checked);
     item = {};
     item ["roleid"] = id;
     item ["assigned"] = checked;

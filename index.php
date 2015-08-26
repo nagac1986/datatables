@@ -10,14 +10,24 @@
 		<link rel="stylesheet"  href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet"  href="./css/employee.css">
+
+		<link rel="stylesheet"  href="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css">
+		<link rel="stylesheet"  href="https://cdn.datatables.net/select/1.0.0/css/select.bootstrap.min.css">
+		<link rel="stylesheet"  href="https://cdn.datatables.net/buttons/1.0.1/css/buttons.bootstrap.min.css">
+
+		
+		
+
 		
 	</head>
 	<body>
 		<body>
-		<div id = "mainContent">
-
+		<div class="span12 pagination-centered">
+		    <span> Employee Role Management Page </span>
+		</div>
 		
-			<table id="employee" class="display" >
+		<div id = "mainContent">
+			<table id="employee" class="table table-striped table-bordered">
 		        <thead>
 		            <tr>
 		            	<th></th>
@@ -30,11 +40,5 @@
 		        </thead>
 		    </table>
 	    </div>
-
-
-		<?php
-			include('./php/datalib.php');
-		?>
-
 	</body>
 </html>

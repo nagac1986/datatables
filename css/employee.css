@@ -14,7 +14,12 @@ tbody tr:hover {
   background: yellow;
 }
 
-
+.pagination-centered{
+  text-align:center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: xx-large;
+}
 
 td.details-control {
     background: url('../resources/details_open.png') no-repeat center center;
