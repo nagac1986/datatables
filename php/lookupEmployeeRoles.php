@@ -6,7 +6,7 @@ include('./datalib.php');
 	    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	}
 
-	$myquery = "select r.rolename ,  er.eid is not null hasrole from employee_role er right  JOIN  roles r on r.rid = er.rid and  er.eid=".$empId;
+	$myquery = "select  r.rid as roleid, r.rolename ,  er.eid is not null hasrole from employee_role er right  JOIN  roles r on r.rid = er.rid and  er.eid=".$empId." order by r.rolename";
 	$myArray = array();
 	if ($result = $mysqli->query($myquery)) {
 	    $tempArray = array();

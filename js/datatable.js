@@ -1,33 +1,11 @@
-/* Formatting function for row details - modify as you need */
-function format ( d ) {
-
-$.ajax({
-    type: 'get',
-    url: './php/lookupEmployeeRoles.php?id='+d.eid,
-    success: function(data) {
-         $table = '<table class = "innerTable" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-            '<tr>'+
-                '<fieldset> ' +
-                    '<legend>Employee roles </legend>'+
-                    '<form action="employeemap"> ' +
-                        '<input type="checkbox" name="role" value="Administrator"> Admin <br> ' +
-                        '<input type="checkbox" name="role" value="Administrator" checked /> Admin <br> ' +
-                        '<input type="checkbox" name="role" value="Administrator"> Admin <br> ' +
-                        '<input type="submit" value="Submit"> ' +
-                    '</form>' +
-                '</fieldset> ' +
-            '</tr>'+
-        '</table>'; 
-
-        return $table;   
-    }
-});
-
-
-   
-}
 
 $(document).ready(function() {
+
+   
+    
+
+
+
  
    var empTable =   $('#employee').DataTable( {
         "ajax": './php/getEmployeeDetails.php',
@@ -63,27 +41,25 @@ $(document).ready(function() {
             url: './php/lookupEmployeeRoles.php?id='+row.data().eid,
             success: function(data) {
                  $roleData = JSON.parse(data)
-                 $table = '<table class = "innerTable" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                    '<tr>'+
+                 $table = '<div id = "innerTable" >' +
+                    
                         '<fieldset> ' +
-                            '<legend>Employee roles </legend>'+
-                            '<form action="employeemap"> ' ;
+                            '<legend>Employee roles </legend>';
+                            //'<form id="employeemap"> ' ;
 
                              for (i = 0 ; i<$roleData.data.length ;i++) {
                                 $table = $table + '<input type="checkbox" name="role" value= "'+ 
-                                        $roleData.data[i].rolename+'"';
+                                        $roleData.data[i].roleid+'"';
                                 if($roleData.data[i].hasrole == 1)  
                                 {
                                      $table = $table + 'checked'
                                 }
                                 $table = $table  + ' > '+ $roleData.data[i].rolename+' <br> '  ; 
                             }
-                            $table = $table+ '<input type="submit" value="Submit"> ' +
-                        '</form>' +
+                            $table = $table+ '<button id = "empButton" type="submit">Submit form</button>' +
+                      //  '</form>' +
                         '</fieldset> ' +
-                    '</tr>'+
-                '</table>'; 
-            console.log($table);
+                '</div>'; 
              row.child($table).show();
              tr.addClass('shown');
                    
@@ -93,6 +69,32 @@ $(document).ready(function() {
         }
 
     } );
+
+$('#employee tbody').on('click', 'button', function () {
+    var thisTr = $(this).closest('tr');
+    var trData = empTable.row(thisTr.prev()).data();
+   
+jsonObj = [];
+for( i =0 ;i<thisTr.find('input').length;i++){
+    var checked = thisTr.find('input')[i].checked;
+    var id = thisTr.find('input')[i].value;
+    alert(checked);
+    item = {};
+    item ["roleid"] = id;
+    item ["assigned"] = checked;
+    item ["employeeid"] = trData.eid
+    jsonObj.push(item);
+}  
+
+var jsonPayload = {};
+ jsonPayload['data'] = jsonObj;
+        
+        //Ajax post data to server
+        $.post('./php/update_roles.php', jsonPayload, function(response){  
+        }, 'json');
+    });
+
+
 
 
 
