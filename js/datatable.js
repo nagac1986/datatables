@@ -28,18 +28,11 @@
                 tr.removeClass('shown');
             }
             else {
-                //row.data().eid
                  $.ajax({
                 type: 'get',
                 url: './php/lookupEmployeeRoles.php?id='+row.data().eid,
                 success: function(data) {
-                     var roleData = JSON.parse(data)
-                /*
-    {{for allClients}}
-        <option value="{{:clientId}}" {{:~isSelected(clientId)}}>{{:clientId}} - {{:clientName}}</option>
-    {{/for}}
-
-                */
+                     var roleData = JSON.parse(data);
                      var table = '<div id="innerTable" class="form-group">'
                                     +'<fieldset>'
                                         +'<legend>Employee roles </legend>'
@@ -63,31 +56,35 @@
 
         } );
 
+    $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) { 
+        alert(JSON.parse(settings.jqXHR.responseText).result);
+    };
+
     $('#employee tbody').on('click', 'button', function () {
         var thisTr = $(this).closest('tr');
         var trData = empTable.row(thisTr.prev()).data();
 
-    jsonObj = [];
-    for( i =0 ;i<thisTr.find('input').length;i++){
-        var checked = thisTr.find('input')[i].checked;
-        var id = thisTr.find('input')[i].value;
-        item = {};
-        item ["roleid"] = id;
-        item ["assigned"] = checked;
-        item ["employeeid"] = trData.eid
-        jsonObj.push(item);
-    }  
+        jsonObj = [];
+        for( i =0 ;i<thisTr.find('input').length;i++){
+            var checked = thisTr.find('input')[i].checked;
+            var id = thisTr.find('input')[i].value;
+            item = {};
+            item ["roleid"] = id;
+            item ["assigned"] = checked;
+            item ["employeeid"] = trData.eid
+            jsonObj.push(item);
+        }  
 
-    var jsonPayload = {};
-     jsonPayload['data'] = jsonObj;
+        var jsonPayload = {};
+        jsonPayload['data'] = jsonObj;
 
-            //Ajax post data to server
-            $.post('./php/update_roles.php', jsonPayload, function(response){  
-            }, 'json');
+        //Ajax post data to server
+        var dataPost = $.post('./php/update_roles.php', jsonPayload, function(response){
+            alert( "Update was successful" );
+        }, 'json')
+        .fail(function() {
+          alert("Update was failure" );
         });
 
-
-
-
-
-    } ); 
+    });
+} ); 
